@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class Event extends Component {
-  constructor()  {
+  constructor() {
     super();
     this.state = {
       collapsed: true,
