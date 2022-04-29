@@ -30,33 +30,37 @@ class CitySearch extends Component {
   };
   render() {
     return (
-      <div className="CitySearch">
-        <input
-          type="text"
-          className="city"
-          value={this.state.query}
-          onChange={this.handleInputChanged}
-          onFocus={() => {
-            this.setState({ showSuggestions: true });
-          }}
-        />
-        <ul
-          className="suggestions"
-          style={this.state.showSuggestions ? {} : { display: "none" }}
-        >
-          {this.state.suggestions.map((suggestion) => (
-            <li
-              key={suggestion}
-              onClick={() => this.handleItemClicked(suggestion)}
-            >
-              {suggestion}
+      <>
+        <div className="CitySearch">
+          <label>Search a City: </label>
+          <input
+            type="text"
+            className="city"
+            value={this.state.query}
+            onChange={this.handleInputChanged}
+            onFocus={() => {
+              this.setState({ showSuggestions: true });
+            }}
+          />
+          <ul
+            className="suggestions"
+            style={this.state.showSuggestions ? {} : { display: "none" }}
+          >
+            {this.state.suggestions.map((suggestion) => (
+              <li
+                key={suggestion}
+                onClick={() => this.handleItemClicked(suggestion)}
+              >
+                {suggestion}
+              </li>
+            ))}
+            <li onClick={() => this.handleItemClicked("all")}>
+              <b>See all cities</b>
             </li>
-          ))}
-          <li onClick={() => this.handleItemClicked("all")}>
-            <b>See all cities</b>
-          </li>
-        </ul>
-      </div>
+          </ul>
+        </div>
+        <br />
+      </>
     );
   }
 }
