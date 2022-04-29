@@ -75,10 +75,13 @@ input[type="number"] {
 .suggestions > li:hover {
   background-color: #bcdcdb;
 }
+.EventList {
+  margin: 20px;
+}
 
 .event {
-  padding: 10px 10px 35px;
-  margin-bottom: 10px;
+  padding: 0px 15px 23px 15px;
+  margin: 10px;
   text-align: left;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -198,7 +201,35 @@ input[type="number"] {
   font-family: "Roboto";
 }
 
+button {
+  border: none;
+  background-color: rgb(231, 165, 165);
+  border-radius: 6px;
+  padding: 7px;
+  margin-top: 10px;
+  font-size: 14px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
 
+button:hover {
+  cursor: pointer;
+  background-color: rgb(104, 161, 104);
+}
+
+.gCal-details {
+  text-decoration: none;
+  color: rgb(226, 49, 49);
+}
+
+.gCal-details:hover {
+  cursor: pointer;
+  color: green;
+}
+
+.summary {
+  font-size: 22px;
+}
 
 @media only screen and (min-width: 992px) {
   .data-vis-wrapper {
@@ -209,5 +240,9 @@ input[type="number"] {
     max-width: 50%;
     min-width: auto;
     margin: 0 auto;
+  }
+  .EventList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }
