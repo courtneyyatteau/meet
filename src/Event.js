@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { Card, Button, CardGroup } from "react-bootstrap";
 
 class Event extends Component {
   state = {
+    event: {},
     collapsed: true,
   };
 
@@ -14,37 +16,55 @@ class Event extends Component {
   render() {
     const { event } = this.props;
     const { collapsed } = this.state;
-
     return (
-      <div className="event-container">
-        <div className="event">
-          <h3 className="summary">{event.summary}</h3>
+      <div className="event">
+        <CardGroup>
+          <Card className="event-card">
+            <Card.Body>
+              <Card.Title className="summary">{event.summary}</Card.Title>
+              <Card.Subtitle className="start-date">
+                {event.start.dateTime} ({event.start.timeZone})
+              </Card.Subtitle>
+              <Card.Subtitle className="location">
+                @{event.summary} | {event.location}
+              </Card.Subtitle>
 
-          <p className="start-date">
-            {event.start.dateTime} ({event.start.timeZone})
-          </p>
-          <p className="location">
-            @{event.summary} | {event.location}
-          </p>
-          <button
-            onClick={this.handleClick}
-            className="show-details hide-details"
-          >
-            {collapsed ? "Show Details" : "Hide Details"}
-          </button>
+              <Button
+                variant="outline-info"
+                className={`details-button ${
+                  collapsed ? "show" : "hide"
+                }-details`}
+                onClick={this.handleClick}
+              >
+                {collapsed ? "Show Details" : "Hide Details"}
+              </Button>
 
-          {!collapsed && (
-            <div className="extra-details">
-              <h3>About the event:</h3>
-              <a href={event.htmlLink} rel="noreferrer" target="_blank" className="gCal-details">
-                See details on Google Calendar
-              </a>
-              <p className="event-description">{event.description}</p>
-            </div>
-          )}
-        </div>
+              {!collapsed && (
+                <div
+                  className={`extra-details ${
+                    this.state.collapsed ? "hide" : "show"
+                  }`}
+                >
+                  <Card.Title className="card-title">
+                    About the event:
+                  </Card.Title>
+                  <a
+                    className="event-link"
+                    href={event.htmlLink}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    See details on Google Calendar
+                  </a>
+                  <p className="event-description">{event.description}</p>
+                </div>
+              )}
+            </Card.Body>
+          </Card>
+        </CardGroup>
       </div>
     );
   }
 }
+
 export default Event;
