@@ -54,7 +54,7 @@ class Event extends Component {
                     rel="noreferrer"
                     target="_blank"
                   >
-                    <button className="google-btn">
+                    <button className="gCalbtn">
                       See details on Google Calendar
                     </button>
                   </a>
