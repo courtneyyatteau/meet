@@ -3,7 +3,6 @@ import "./App.css";
 import EventList from "./EventList";
 import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
-import WelcomeScreen from "./WelcomeScreen";
 import { getEvents, extractLocations, checkToken, getAccessToken } from "./api";
 
 class App extends Component {
@@ -69,12 +68,7 @@ class App extends Component {
           updateNumberOfEvents={this.updateNumberOfEvents}
         />
         <EventList events={events} />
-        <WelcomeScreen
-          showWelcomeScreen={this.state.showWelcomeScreen}
-          getAccessToken={() => {
-            getAccessToken();
-          }}
-        />
+
       </div>
     );
   }
