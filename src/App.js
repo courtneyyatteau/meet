@@ -4,6 +4,8 @@ import EventList from "./EventList";
 import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
 import WelcomeScreen from "./WelcomeScreen";
+import { OfflineAlert } from "./Alert";
+
 import { getEvents, extractLocations, checkToken, getAccessToken } from "./api";
 
 class App extends Component {
@@ -12,6 +14,7 @@ class App extends Component {
     numberOfEvents: 32,
     locations: [],
     showWelcomeScreen: undefined,
+    OfflineAlertText: "",
   };
 
   async componentDidMount() {
@@ -26,6 +29,15 @@ class App extends Component {
         if (this.mounted) {
           this.setState({ events, locations: extractLocations(events) });
         }
+      });
+    }
+    if (!navigator.onLine) {
+      this.setState({
+        OfflineAlertText: "You are not connected to the internet",
+      });
+    } else {
+      this.setState({
+        OfflineAlertText: "",
       });
     }
   }
@@ -59,7 +71,7 @@ class App extends Component {
   };
 
   render() {
-    const { events, locations, numberOfEvents } = this.state;
+    const { numberOfEvents, locations, events, OfflineAlertText } = this.state;
     if (this.state.showWelcomeScreen === undefined)
       return <div className="App" />;
     return (
@@ -70,6 +82,7 @@ class App extends Component {
           updateNumberOfEvents={this.updateNumberOfEvents}
         />
         <EventList events={events} />
+        <OfflineAlert text={OfflineAlertText} />
         <WelcomeScreen
           showWelcomeScreen={this.state.showWelcomeScreen}
           getAccessToken={() => {
