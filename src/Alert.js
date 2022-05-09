@@ -29,7 +29,7 @@ class InfoAlert extends Alert {
   getStyle = () => {
     return {
       color: this.color,
-      marginTop: "70px",
+      marginTop: "95px",
     };
   };
 }
@@ -51,8 +51,13 @@ class WarningAlert extends Alert {
   constructor(props) {
     super(props);
     this.color = "red";
-    this.fontSize = "16px";
   }
+  getStyle = () => {
+    return {
+      color: this.color,
+      marginTop: "10px",
+    };
+  };
 }
 
 class OfflineAlert extends Alert {
