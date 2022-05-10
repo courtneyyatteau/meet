@@ -29,7 +29,7 @@ class InfoAlert extends Alert {
   getStyle = () => {
     return {
       color: this.color,
-      marginTop: "95px",
+      marginTop: "20px",
     };
   };
 }
@@ -42,7 +42,7 @@ class ErrorAlert extends Alert {
   getStyle = () => {
     return {
       color: this.color,
-      marginTop: "150px",
+      marginTop: "230px",
     };
   };
 }
