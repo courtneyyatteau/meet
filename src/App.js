@@ -5,6 +5,15 @@ import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
 import WelcomeScreen from "./WelcomeScreen";
 import { OfflineAlert } from "./Alert";
+import {
+  ScatterChart,
+  Scatter,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 import { getEvents, extractLocations, checkToken, getAccessToken } from "./api";
 
@@ -70,17 +79,55 @@ class App extends Component {
     });
   };
 
+  getData = () => {
+    const { locations, events } = this.state;
+    const data = locations.map((location) => {
+      const number = events.filter(
+        (event) => event.location === location
+      ).length;
+      const city = location.split(", ").shift();
+      return { city, number };
+    });
+    return data;
+  };
+
   render() {
     const { numberOfEvents, locations, events, OfflineAlertText } = this.state;
     if (this.state.showWelcomeScreen === undefined)
       return <div className="App" />;
     return (
       <div className="App">
-        <CitySearch locations={locations} updateEvents={this.updateEvents} />
+        <h1>Meet App</h1>
+        <h4>Choose your nearest city</h4>
+        <CitySearch updateEvents={this.updateEvents} locations={locations} />
         <NumberOfEvents
+          updateEvents={this.updateEvents}
           numberOfEvents={numberOfEvents}
-          updateNumberOfEvents={this.updateNumberOfEvents}
         />
+        <h4>Events in each city</h4>
+        <ResponsiveContainer height={400}>
+          <ScatterChart
+            width={800}
+            height={400}
+            margin={{
+              top: 20,
+              right: 20,
+              bottom: 20,
+              left: 20,
+            }}
+          >
+            <CartesianGrid />
+            <XAxis type="category" dataKey="city" name="city" />
+            <YAxis
+              type="number"
+              dataKey="number"
+              name="number of events"
+              allowDecimals={false}
+            />
+            <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+            <Scatter data={this.getData()} fill="#8884d8" />
+          </ScatterChart>
+        </ResponsiveContainer>
         <EventList events={events} />
         <OfflineAlert text={OfflineAlertText} />
         <WelcomeScreen
