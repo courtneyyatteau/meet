@@ -1,21 +1,24 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { ErrorAlert } from "./Alert";
+import InputGroup from "react-bootstrap/InputGroup";
+import Form from "react-bootstrap/Form";
+import { Button } from "react-bootstrap";
 
 class NumberOfEvents extends Component {
   state = {
-    numberOfEvents: 32,
+    numberHandle: 32,
     errorText: "",
   };
 
-  handleInputChanged = (event) => {
-    const value = event.target.value;
-    if (value < 1 || value > 32) {
+  numberOfEventsHandler = (event) => {
+    if (event.target.value < 1 || event.target.value > 32) {
       this.setState({
-        errorText: "Select number from 1 to 32",
+        numberHandle: event.target.value,
+        errorText: `Valid Scope 1-32`,
       });
     } else {
       this.setState({
-        numberOfEvents: value,
+        numberHandle: event.target.value,
         errorText: "",
       });
     }
@@ -23,16 +26,36 @@ class NumberOfEvents extends Component {
 
   render() {
     return (
-      <div className="numberOfEvents">
-        <div className="numberOfEventsAlert"></div>
-        <input
-          type="number"
-          className="inputNumberOfEvents"
-          onChange={this.handleInputChanged}
-          value={this.state.numberOfEvents}
-        />
-        <ErrorAlert text={this.state.errorText} className="error" />
-      </div>
+      <Form className="numberOfEventsStyle">
+        <Form.Group>
+          <InputGroup>
+            <Form.Control
+              className="numberOfEvents"
+              type="number"
+              value={this.state.numberHandle}
+              min="0"
+              onChange={this.numberOfEventsHandler}
+            />
+
+            <Button
+              variant="outline-secondary"
+              id="button-addon2"
+              className="changeNumbers"
+              onClick={() => {
+                this.props.updateEvents(
+                  this.props.currentLocation,
+                  this.state.numberHandle
+                );
+              }}
+            >
+              Update Event Count
+            </Button>
+          </InputGroup>
+          <Form.Group className="errorMessage">
+            <ErrorAlert text={this.state.errorText}></ErrorAlert>
+          </Form.Group>
+        </Form.Group>
+      </Form>
     );
   }
 }
