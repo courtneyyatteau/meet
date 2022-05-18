@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, ResponsiveContainer } from "recharts";
 
-export const EventGenre = ({ events }) => {
+const EventGenre = ({ events }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     const getData = () => {
