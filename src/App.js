@@ -75,6 +75,7 @@ class App extends Component {
         this.setState({
           events: locationEvents.slice(0, this.state.numberOfEvents),
           currentLocation: location,
+          numberOfEvents: eventCount,
         });
       }
     });
@@ -101,8 +102,9 @@ class App extends Component {
         <h1>Meet App</h1>
         <CitySearch updateEvents={this.updateEvents} locations={locations} />
         <NumberOfEvents
-          updateEvents={this.updateEvents}
-          numberOfEvents={numberOfEvents}
+          updateNumberOfEvents={(number) => {
+            this.updateNumberOfEvents(number);
+          }}
         />
         <div className="data-vis-wrapper">
           <EventGenre events={this.state.events} />
