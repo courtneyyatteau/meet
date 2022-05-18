@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-const EventGenre = ({ events }) => {
+export const EventGenre = ({ events }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     const getData = () => {
@@ -18,17 +18,8 @@ const EventGenre = ({ events }) => {
   }, [events]);
 
   return (
-    <ResponsiveContainer>
-      <PieChart
-        width={400}
-        height={400}
-        margin={{
-          top: 20,
-          right: 20,
-          bottom: 20,
-          left: 0,
-        }}
-      >
+    <ResponsiveContainer height={400}>
+      <PieChart width={400} height={400}>
         <Pie
           data={data}
           cx={200}
@@ -36,7 +27,7 @@ const EventGenre = ({ events }) => {
           labelLine={false}
           outerRadius={80}
           fill="#8884d8"
-          dataKey="value"
+          datakey="value"
           label={({ name, percent }) =>
             `${name} ${(percent * 100).toFixed(0)}%`
           }

@@ -3,7 +3,6 @@ import Event from "./Event";
 import { Row, Col, Container } from "react-bootstrap";
 import { WarningAlert } from "./Alert";
 
-
 class EventList extends Component {
   render() {
     const { events } = this.props;
