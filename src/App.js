@@ -4,8 +4,9 @@ import EventList from "./EventList";
 import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
 import WelcomeScreen from "./WelcomeScreen";
+import { WarningAlert } from "./Alert";
 import EventGenre from "./EventGenre";
-import { OfflineAlert } from "./Alert";
+
 import {
   ScatterChart,
   Scatter,
@@ -15,16 +16,17 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
-import { getEvents, extractLocations, checkToken, getAccessToken } from "./api";
+import { extractLocations, getEvents, checkToken, getAccessToken } from "./api";
 
 class App extends Component {
   state = {
     events: [],
-    numberOfEvents: 32,
     locations: [],
+    eventsLength: 32,
+    savedLocation: "all",
+    totalResNumber: "",
     showWelcomeScreen: undefined,
-    OfflineAlertText: "",
+    fullEvents: [],
   };
 
   async componentDidMount() {
@@ -52,22 +54,35 @@ class App extends Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.state.offlineText) {
+      setTimeout(() => this.setState({ offlineText: null }), 6000);
+    }
+  }
+
   componentWillUnmount() {
     this.mounted = false;
   }
 
-  updateEvents = (location, eventCount = this.state.numberOfEvents) => {
+  updateEvents = (
+    location = this.state.savedLocation,
+    number = this.state.eventsLength
+  ) => {
     getEvents().then((events) => {
-      const locationEvents =
+      let locationEvents =
         location === "all"
           ? events
           : events.filter((event) => event.location === location);
-      const sliceEvents = locationEvents.slice(0, eventCount);
+      let totalsByLocation = locationEvents.length;
+      const isOffline = navigator.onLine ? false : true;
+
       this.setState({
-        events: sliceEvents,
-        numberOfEvents: eventCount ? eventCount : this.state.numberOfEvents,
-        currentLocation: location,
-        maxEventsCount: events.length,
+        events: locationEvents.slice(0, number),
+        eventsLength: number,
+        savedLocation: location,
+        totalResNumber: totalsByLocation,
+
+        offlineText: isOffline ? "You're currently offline." : null,
       });
     });
   };
@@ -78,61 +93,77 @@ class App extends Component {
       const number = events.filter(
         (event) => event.location === location
       ).length;
-      const city = location.split(", ").shift();
+      const city = location.split(/[-,]+/).shift();
       return { city, number };
     });
     return data;
   };
 
   render() {
-    const { numberOfEvents, locations, events, OfflineAlertText } = this.state;
     if (this.state.showWelcomeScreen === undefined)
       return <div className="App" />;
     return (
       <div className="App">
-        <h1>Meet App</h1>
-        <CitySearch updateEvents={this.updateEvents} locations={locations} />
-        <NumberOfEvents
-          updateEvents={(location, eventCount) => {
-            this.updateEvents(location, eventCount);
-          }}
-          numberOfEvents={numberOfEvents}
-        />
-        <div className="data-vis-wrapper">
-          <EventGenre events={this.state.events} />
-          <h4>Events in each city</h4>
-          <ResponsiveContainer height={400}>
-            <ScatterChart
-              width={800}
-              height={400}
-              margin={{
-                top: 20,
-                right: 20,
-                bottom: 20,
-                left: 20,
-              }}
-            >
-              <CartesianGrid />
-              <XAxis type="category" dataKey="city" name="city" />
-              <YAxis
-                type="number"
-                dataKey="number"
-                name="number of events"
-                allowDecimals={false}
-              />
-              <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-              <Scatter data={this.getData()} fill="#8884d8" />
-            </ScatterChart>
-          </ResponsiveContainer>
-        </div>
-        <EventList events={events} />
-        <OfflineAlert text={OfflineAlertText} />
-        <WelcomeScreen
-          showWelcomeScreen={this.state.showWelcomeScreen}
-          getAccessToken={() => {
-            getAccessToken();
-          }}
-        />
+        {this.state.offlineText && (
+          <WarningAlert text={this.state.offlineText} />
+        )}
+
+        {
+          <WelcomeScreen
+            showWelcomeScreen={this.state.showWelcomeScreen}
+            getAccessToken={() => {
+              getAccessToken();
+            }}
+          />
+        }
+
+        {!this.state.showWelcomeScreen && (
+          <div>
+            <CitySearch
+              locations={this.state.locations}
+              updateEvents={this.updateEvents}
+            />
+            <NumberOfEvents
+              updateEvents={this.updateEvents}
+              events={this.state.events}
+              totalResNumber={this.state.totalResNumber}
+            />
+
+            <div className="data-vis-wrapper">
+              <EventGenre events={this.state.events} />
+              <ResponsiveContainer height={400}>
+                <ScatterChart
+                  width={600}
+                  height={400}
+                  margin={{
+                    top: 20,
+                    right: 30,
+                    bottom: 20,
+                    left: 0,
+                  }}
+                >
+                  <CartesianGrid />
+                  <XAxis
+                    type="category"
+                    dataKey="city"
+                    name="city"
+                    allowDecimals={false}
+                  />
+                  <YAxis
+                    type="number"
+                    dataKey="number"
+                    name="number of events"
+                    allowDecimals={false}
+                  />
+
+                  <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                  <Scatter data={this.getData()} fill="#8884d8" />
+                </ScatterChart>
+              </ResponsiveContainer>
+            </div>
+            <EventList events={this.state.events} />
+          </div>
+        )}
       </div>
     );
   }

@@ -1,63 +1,49 @@
-import { Component } from "react";
-import { ErrorAlert } from "./Alert";
-import InputGroup from "react-bootstrap/InputGroup";
+import React, { Component } from "react";
+import { ErrorAlert, WarningAlert } from "./Alert";
 import Form from "react-bootstrap/Form";
-import { Button } from "react-bootstrap";
 
 class NumberOfEvents extends Component {
   state = {
-    numberHandle: 32,
-    errorText: "",
+    eventsNumber: 32,
   };
 
-  numberOfEventsHandler = (event) => {
+  inputChanged = (event) => {
     if (event.target.value < 1 || event.target.value > 32) {
       this.setState({
-        numberHandle: event.target.value,
-        errorText: `Valid Scope 1-32`,
+        errorText: "Enter a number between 1 and 32.",
+        eventsNumber: event.target.value,
+        warningText: null,
       });
-    } else {
+    } else if (event.target.value > 0) {
       this.setState({
-        numberHandle: event.target.value,
-        errorText: "",
+        eventsNumber: event.target.value,
+        warningText: null,
+        errorText: null,
       });
     }
+    this.props.updateEvents(undefined, event.target.value);
   };
 
   render() {
     return (
       <Form className="numberOfEventsStyle">
-        <Form.Group>
-          <InputGroup>
-            <Form.Control
-              className="numberOfEvents"
-              type="number"
-              value={this.state.numberHandle}
-              min="0"
-              onChange={this.numberOfEventsHandler}
-            />
+        {this.state.errorText && <ErrorAlert text={this.state.errorText} />}
+        {this.state.warningText && (
+          <WarningAlert
+            className="errorMessage"
+            text={this.state.warningText}
+          />
+        )}
 
-            <Button
-              variant="outline-secondary"
-              id="button-addon2"
-              className="changeNumbers"
-              onClick={() => {
-                this.props.updateEvents(
-                  this.props.currentLocation,
-                  this.state.numberHandle
-                );
-              }}
-            >
-              Update Event Count
-            </Button>
-          </InputGroup>
-          <Form.Group className="errorMessage">
-            <ErrorAlert text={this.state.errorText}></ErrorAlert>
-          </Form.Group>
-        </Form.Group>
+        <label>Update Event Count: </label>
+        <input
+          type="number"
+          className="numberOfEvents"
+          placeholder={this.state.eventsNumber}
+          onChange={this.inputChanged}
+        ></input>
       </Form>
     );
   }
 }
-
 export default NumberOfEvents;
