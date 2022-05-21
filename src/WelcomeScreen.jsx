@@ -19,7 +19,7 @@ function WelcomeScreen(props) {
         <Card className="card">
           <Card.ImgOverlay>
             <Card.Img src={image} alt="Card image" className="card-img" />
-            <h2>
+            <h2 className="welcome-text">
               Log in to see upcoming events around the world for full-stack
               developers!
             </h2>
