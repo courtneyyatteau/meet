@@ -27,7 +27,6 @@
 
 body {
   margin: 0;
-  height: 100vh;
   font-weight: 100;
   background: radial-gradient(#d8cec8, #332326);
   -webkit-overflow-y: hidden;

@@ -4,6 +4,10 @@
   text-align: center;
 }
 
+body {
+  background: none;
+}
+
 .App * {
   box-sizing: border-box;
 }
@@ -23,7 +27,6 @@ p {
 .showSuggestions {
   display: block;
 }
-
 
 input[type="text"],
 input[type="number"] {
