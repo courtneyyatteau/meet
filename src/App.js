@@ -133,11 +133,12 @@ class App extends Component {
               <EventGenre events={this.state.events} />
               <ResponsiveContainer height={400}>
                 <ScatterChart
-                  width={600}
+                className="scatter-chart"
+                  width={650}
                   height={400}
                   margin={{
                     top: 20,
-                    right: 30,
+                    right: 50,
                     bottom: 20,
                     left: 0,
                   }}
@@ -157,7 +158,7 @@ class App extends Component {
                   />
 
                   <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                  <Scatter data={this.getData()} fill="#8884d8" />
+                  <Scatter data={this.getData()} fill="#483d8b" />
                 </ScatterChart>
               </ResponsiveContainer>
             </div>

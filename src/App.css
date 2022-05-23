@@ -168,6 +168,11 @@ input[type="number"] {
   margin-top: 100px;
 }
 
+.pie-chart,
+.scatter-chart {
+  font-size: 24px;
+}
+
 @media only screen and (min-width: 992px) {
   .data-vis-wrapper {
     flex-direction: row;
@@ -181,5 +186,9 @@ input[type="number"] {
   .EventList {
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+  .pie-chart,
+  .scatter-chart {
+    font-size: 21px;
   }
 }

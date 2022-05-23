@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PieChart, Pie, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
 
 const EventGenre = ({ events }) => {
   const [data, setData] = useState([]);
@@ -16,10 +16,12 @@ const EventGenre = ({ events }) => {
     };
     setData(() => getData());
   }, [events]);
+  const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#663399"];
 
   return (
     <ResponsiveContainer height={400}>
       <PieChart
+        className="pie-chart"
         width={300}
         height={300}
         margin={{
@@ -32,15 +34,19 @@ const EventGenre = ({ events }) => {
         <Pie
           data={data}
           cx={200}
-          cy={200}
+          cy={150}
           labelLine={false}
-          outerRadius={80}
-          fill="#8884d8"
+          outerRadius={90}
+          fill="red"
           datakey="value"
           label={({ name, percent }) =>
             `${name} ${(percent * 100).toFixed(0)}%`
           }
-        ></Pie>
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+          ))}
+        </Pie>
       </PieChart>
     </ResponsiveContainer>
   );

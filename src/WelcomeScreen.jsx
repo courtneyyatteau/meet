@@ -6,21 +6,17 @@ import image from "./welcome_image.png";
 function WelcomeScreen(props) {
   return props.showWelcomeScreen ? (
     <div className="WelcomeScreen">
-      <div className="light x1"></div>
-      <div className="light x2"></div>
-      <div className="light x3"></div>
-      <div className="light x4"></div>
-      <div className="light x5"></div>
-      <div className="light x6"></div>
-      <div className="light x7"></div>
-      <div className="light x8"></div>
-      <div className="light x9"></div>
+      <div className="d-flex flex-column justify-content-center w-100 h-100">
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          <div className="btn-group my-5"></div>
+        </div>
+      </div>
       <div className="Welcome">
         <Card className="card">
           <Card.ImgOverlay>
             <Card.Img src={image} alt="Card image" className="card-img" />
-            <h2 className="welcome-text">
-              Log in to see upcoming events around the world for full-stack
+            <h2 className="welcome-text animate__animated animate__backInDown">
+              Sign in to see upcoming events around the world for full-stack
               developers!
             </h2>
             <div className="button_cont" align="center">
