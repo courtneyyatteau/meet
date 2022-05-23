@@ -29,7 +29,8 @@ class InfoAlert extends Alert {
   getStyle = () => {
     return {
       color: this.color,
-      marginTop: "20px",
+      margin: "20px auto",
+      fontSize: "20px",
     };
   };
 }
@@ -42,7 +43,8 @@ class ErrorAlert extends Alert {
   getStyle = () => {
     return {
       color: this.color,
-      marginTop: "230px",
+      margin: "230px auto",
+      fontSize: "20px",
     };
   };
 }
@@ -55,7 +57,8 @@ class WarningAlert extends Alert {
   getStyle = () => {
     return {
       color: this.color,
-      marginTop: "10px",
+      margin: "10px auto",
+      fontSize: "20px",
     };
   };
 }
@@ -68,7 +71,8 @@ class OfflineAlert extends Alert {
   getStyle = () => {
     return {
       color: this.color,
-      marginTop: "150px",
+      margin: "150px auto",
+      fontSize: "20px",
     };
   };
 }

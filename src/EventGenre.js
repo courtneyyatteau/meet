@@ -3,6 +3,8 @@ import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
 
 const EventGenre = ({ events }) => {
   const [data, setData] = useState([]);
+  const genres = ["React", "JavaScript", "Node", "jQuery", "AngularJS"];
+
   useEffect(() => {
     const getData = () => {
       const genres = ["React", "JavaScript", "Node", "jQuery", "AngularJS"];
@@ -17,6 +19,31 @@ const EventGenre = ({ events }) => {
     setData(() => getData());
   }, [events]);
   const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#663399"];
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    outerRadius,
+    percent,
+    index,
+  }) => {
+    const radius = outerRadius;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN) * 1.2;
+    const y = cy + radius * Math.sin(-midAngle * RADIAN) * 1.2;
+    const percentVal = percent * 100;
+    return percentVal === 0 ? null : (
+      <text
+        x={x}
+        y={y}
+        fill="black"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+      >
+        {`${genres[index]} ${percentVal.toFixed(0)}%`}
+      </text>
+    );
+  };
 
   return (
     <ResponsiveContainer height={400}>
@@ -38,9 +65,7 @@ const EventGenre = ({ events }) => {
           outerRadius={80}
           fill="red"
           datakey="value"
-          label={({ name, percent }) =>
-            `${name} ${(percent * 100).toFixed(0)}%`
-          }
+          label={renderCustomizedLabel}
         >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
