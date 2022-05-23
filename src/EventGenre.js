@@ -33,10 +33,9 @@ const EventGenre = ({ events }) => {
       >
         <Pie
           data={data}
-          cx={200}
           cy={150}
           labelLine={false}
-          outerRadius={90}
+          outerRadius={80}
           fill="red"
           datakey="value"
           label={({ name, percent }) =>

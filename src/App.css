@@ -2,6 +2,8 @@
 .App {
   margin-top: 3%;
   text-align: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .App * {
   box-sizing: border-box;
@@ -170,10 +172,10 @@ input[type="number"] {
 
 .pie-chart,
 .scatter-chart {
-  font-size: 24px;
+  font-size: 13px;
 }
 
-@media only screen and (min-width: 992px) {
+@media (min-width: 992px) {
   .data-vis-wrapper {
     flex-direction: row;
   }
@@ -189,6 +191,6 @@ input[type="number"] {
   }
   .pie-chart,
   .scatter-chart {
-    font-size: 21px;
+    font-size: 20px;
   }
 }
