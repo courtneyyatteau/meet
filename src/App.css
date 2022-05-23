@@ -3,11 +3,6 @@
   margin-top: 3%;
   text-align: center;
 }
-
-body {
-  background: none;
-}
-
 .App * {
   box-sizing: border-box;
 }
