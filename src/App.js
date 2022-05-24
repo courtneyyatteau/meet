@@ -93,7 +93,7 @@ class App extends Component {
       const number = events.filter(
         (event) => event.location === location
       ).length;
-      const city = location.split(/[-,]+/).shift();
+      const city = location.split(",").shift();
       return { city, number };
     });
     return data;
@@ -133,8 +133,8 @@ class App extends Component {
               <EventGenre events={this.state.events} />
               <ResponsiveContainer height={400}>
                 <ScatterChart
-                className="scatter-chart"
-                  width={650}
+                  className="scatter-chart"
+                  width={700}
                   height={400}
                   margin={{
                     top: 20,
