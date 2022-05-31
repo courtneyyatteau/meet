@@ -144,10 +144,7 @@ input[type="number"] {
   cursor: pointer;
 }
 
-.Alert {
-  position: fixed;
-  top: 20px;
-}
+
 
 .data-vis-wrapper {
   display: flex;

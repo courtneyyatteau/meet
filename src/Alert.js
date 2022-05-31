@@ -29,8 +29,8 @@ class InfoAlert extends Alert {
   getStyle = () => {
     return {
       color: this.color,
-      margin: "20px auto",
-      fontSize: "20px",
+      textAlign: "center",
+      fontSize: "15px",
     };
   };
 }
@@ -43,7 +43,8 @@ class ErrorAlert extends Alert {
   getStyle = () => {
     return {
       color: this.color,
-      margin: "230px auto",
+      margin: "10px auto",
+      textAlign: "center",
       fontSize: "20px",
     };
   };
