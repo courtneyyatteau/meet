@@ -1,9 +1,5 @@
 # Overview
 
-This meet app is a list of events happening around the world in major cities for full-stack web developers. The app is a progressive web application (PWA) with React that was developed using a test-driven development technique. The application also contains graphs giving a more visually appealing feel to the events list.
-
-## Meet App
-
 1.	This meet app is a list of events happening around the world in major cities for full-stack web developers. The app is a progressive web application (PWA) with React that was developed using a test-driven development technique. The application also contains graphs giving a more visually appealing feel to the events list.
 
 2.	I was the sole creator on this project. I faced the task of creating an app in a test-driven format. By taking a test-driven approach, I was forced to focus on the requirements of the application before jumping into the code.
